@@ -52,25 +52,36 @@ export default async function Dashboard({
   )
 
   const safeNum = (v: unknown): number => Number(v ?? 0) || 0
-  // Totals in DB are stored as cents — divide by 100. Stats are per-currency Records.
-  const sumRecord = (rec: Record<string, number> | undefined): number =>
-    rec ? Object.values(rec).reduce((a, b) => a + safeNum(b), 0) : 0
+  // Totals in DB are stored as cents — divide by 100.
+  // Stats are per-currency Records. We pick a single display currency:
+  // 1) defaultCurrency if it has any income or expense, else
+  // 2) the first non-zero currency across income/expense maps, else
+  // 3) defaultCurrency (everything is 0 anyway).
+  const incomeMap: Record<string, number> = stats.totalIncomePerCurrency || {}
+  const expenseMap: Record<string, number> = stats.totalExpensesPerCurrency || {}
 
-  const incomeCents =
-    safeNum(stats.totalIncomePerCurrency?.[defaultCurrency]) ||
-    sumRecord(stats.totalIncomePerCurrency)
-  const expensesCents =
-    safeNum(stats.totalExpensesPerCurrency?.[defaultCurrency]) ||
-    sumRecord(stats.totalExpensesPerCurrency)
+  const pickCurrency = (): string => {
+    if (safeNum(incomeMap[defaultCurrency]) || safeNum(expenseMap[defaultCurrency])) {
+      return defaultCurrency
+    }
+    const firstNonZero =
+      Object.entries(incomeMap).find(([, v]) => safeNum(v) !== 0)?.[0] ||
+      Object.entries(expenseMap).find(([, v]) => safeNum(v) !== 0)?.[0]
+    return firstNonZero || defaultCurrency
+  }
+
+  const displayCurrency = pickCurrency()
+  const incomeCents = safeNum(incomeMap[displayCurrency])
+  const expensesCents = safeNum(expenseMap[displayCurrency])
 
   const income = incomeCents / 100
   const expenses = expensesCents / 100
   const net = income - Math.abs(expenses)
 
   const statCards = [
-    { label: "Income", value: income, currency: defaultCurrency, delta: "+12%", tone: "green" as const },
-    { label: "Expenses", value: -Math.abs(expenses), currency: defaultCurrency, delta: "−4%", tone: "neutral" as const },
-    { label: "Net", value: net, currency: defaultCurrency, delta: "+18%", tone: "green" as const },
+    { label: "Income", value: income, currency: displayCurrency, delta: "+12%", tone: "green" as const },
+    { label: "Expenses", value: -Math.abs(expenses), currency: displayCurrency, delta: "−4%", tone: "neutral" as const },
+    { label: "Net", value: net, currency: displayCurrency, delta: "+18%", tone: "green" as const },
     { label: "Pending receipts", value: unsortedCount, isCount: true, delta: "needs review", tone: "amber" as const },
   ]
 
@@ -186,7 +197,7 @@ export default async function Dashboard({
                 className="font-mono-num"
                 style={{ fontSize: 22, fontWeight: 500, letterSpacing: "-0.02em" }}
               >
-                {formatCurrency(net, defaultCurrency)}
+                {formatCurrency(net, displayCurrency)}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
                 Net for{" "}
