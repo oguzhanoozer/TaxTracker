@@ -1,229 +1,123 @@
-<div align="center"><a name="readme-top"></a>
+<div align="center">
 
-<img src="public/logo/512.png" alt="" width="320">
+# Ledger
 
-<br>
+**An editorial-finance, AI-assisted bookkeeping app for freelancers and indie operators.**
 
-# TaxHacker: Self-Hosted AI Accounting
+Upload a receipt, an invoice, or a PDF — Ledger extracts vendor, date, total, tax, line items and category, then files it in a calm, paper-and-ink interface designed to feel less like accounting software and more like a notebook.
 
-[![GitHub Stars](https://img.shields.io/github/stars/vas3k/TaxHacker?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/vas3k/TaxHacker/stargazers)
-[![License](https://img.shields.io/badge/license-MIT-ffcb47?labelColor=black&style=flat-square)](https://github.com/vas3k/TaxHacker/blob/main/LICENSE)
-[![Support Us](https://img.shields.io/badge/-Donate-f04f88?logo=githubsponsors&logoColor=white&style=flat-square)](https://vas3k.com/donate/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000?style=flat-square&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Prisma](https://img.shields.io/badge/Prisma-Postgres-2d3748?style=flat-square&logo=prisma&logoColor=white)](https://www.prisma.io)
+[![License](https://img.shields.io/badge/license-MIT-1F4A3B?style=flat-square)](LICENSE)
 
 </div>
 
-> [!NOTE]  
-> ☝️ I'm currently looking for a job! Particularly interested in companies in Berlin or remote positions in Germany. Here's [my CV](https://raw.githubusercontent.com/vas3k/vas3k/master/cv.pdf) and [Linkedin profile](https://www.linkedin.com/in/vas3k/). Thank you 🙏
+---
 
-TaxHacker is a self-hosted accounting app designed for freelancers, indie-hackers, and small businesses who want to save time and automate expense and income tracking using the power of modern AI.
+## Screens
 
-Upload photos of receipts, invoices, or PDFs, and TaxHacker will automatically recognize and extract all the important data you need for accounting: product names, amounts, items, dates, merchants, taxes, and save it into a structured Excel-like database. You can even create custom fields with your own AI prompts to extract any specific information you need.
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/dashboard-paper.png" alt="Dashboard — Paper theme" /></td>
+    <td width="50%"><img src="docs/screenshots/dashboard-dark.png" alt="Dashboard — Carbon theme" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Paper</b> — warm cream, ink black, pine accent</sub></td>
+    <td align="center"><sub><b>Carbon</b> — same layout, dark mode</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/dashboard-slate.png" alt="Dashboard — Slate theme with palette picker" /></td>
+    <td width="50%"><img src="docs/screenshots/transaction-detail.png" alt="Receipt review screen" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Slate</b> — themeable accents (live tweaks panel)</sub></td>
+    <td align="center"><sub><b>Review</b> — extracted fields next to the source</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/settings-llm.png" alt="Multi-provider LLM settings" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub><b>LLM settings</b> — per-job model selection with provider fallback chain</sub></td>
+  </tr>
+</table>
 
-The app features automatic currency conversion (including crypto!) based on historical exchange rates from the transaction date. With built-in filtering, multi-project support, import/export capabilities, and custom categories, TaxHacker simplifies reporting and makes tax filing a bit easier.
+---
 
-> 🎥 [Watch demo video](https://taxhacker.app/landing/video.mp4)
+## What it does
 
-![Dashboard](public/landing/main-page.webp)
+Ledger turns a pile of receipts into a clean, queryable ledger.
 
-> \[!IMPORTANT]
->
-> This project is still in early development. Use at your own risk! **Star us** to get notified about new features and bugfixes ⭐️
+Drop any image or PDF into the **Unsorted inbox** and a vision model extracts the vendor, date, total, currency, tax, and line items. A second pass categorises it (Software, Travel, Meals, Hardware…) against your past transactions, so categorisation gets sharper the more you use it. Foreign currency totals are converted automatically using historical rates from the transaction date — crypto included.
 
-## ✨ Features
+From there: filter, group, and search the **Transactions** table; build deterministic exports (CSV/XLSX/PDF) for your accountant; or generate **Invoices** from a template. Everything lives in a single Postgres database you own.
 
-### `1` Analyze photos and invoices with AI
+The UI is built around an editorial design system — Newsreader serif headings, Hanken Grotesk body, JetBrains Mono numerals — with three palettes (`paper`, `slate`, `carbon`) and switchable accent colour. No dashboards that look like a 2014 fintech demo.
 
-![Currency Conversion](public/landing/ai-scanner-big.webp)
+---
 
-Snap a photo of any receipt or upload an invoice PDF, and TaxHacker will automatically recognize, extract, categorize, and store all the information in a structured database.
+## Highlights
 
-- **Upload and organize your docs**: Store multiple documents in "unsorted" until you're ready to process them manually or with AI assistance
-- **AI data extraction**: Use AI to automatically pull key information like dates, amounts, vendors, and line items
-- **Auto-categorization**: Transactions are automatically sorted into relevant categories based on their content
-- **Item splitting**: Extract individual items from invoices and split them into separate transactions when needed
-- **Structured storage**: Everything gets saved in an organized database for easy filtering and retrieval
-- **Choose your LLM**: You can use OpenAI, Google Gemini, or Mistral or even your local LLM (in the self-hosted version). Only you're responsible for the quality and privacy of your data.
+- **Multi-provider LLM** — OpenAI, Anthropic, Google, Mistral, or any OpenAI-compatible endpoint. Per-job model selection (vision vs. categorisation vs. line summarisation) with a fallback chain when a provider is down.
+- **Receipt → structured fields** — vision extraction with confidence scores you can verify before approving.
+- **Custom fields** — add your own AI-extracted columns with a natural-language prompt.
+- **Currency conversion** — automatic, historical, with crypto support.
+- **CSV / XLSX import** — column mapping wizard, dedupe by transaction hash.
+- **Editorial design system** — three palettes, six accent colours, JetBrains Mono numerals everywhere they matter.
+- **Self-hosted by default** — no auth wall, your data sits in your Postgres.
 
-TaxHacker works with a wide variety of documents, including store receipts, restaurant bills, invoices, bank statements, letters, even handwritten receipts. It handles any language and any currency with ease.
+---
 
-### `2` Multi-currency support with automatic conversion (even crypto!)
+## Tech stack
 
-![Currency Conversion](public/landing/multi-currency.webp)
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 15 (App Router, RSC + Server Actions) |
+| Language | TypeScript 5 |
+| Styling | Tailwind 4 + CSS variable tokens (HSL) |
+| Type fonts | Newsreader, Hanken Grotesk, JetBrains Mono (via `next/font`) |
+| Data | PostgreSQL + Prisma |
+| AI | OpenAI / Anthropic / Google / Mistral via a provider abstraction |
+| Auth | `better-auth` (disabled in self-hosted mode) |
 
-TaxHacker automatically detects currencies in your documents and converts them to your base currency using historical exchange rates.
+---
 
-- **Foreight currency detection**: Automatically identify the currency used in any document
-- **Historical rates**: Get conversion rates from the actual transaction date
-- **All-world coverage**: Support for 170+ world currencies and 14 popular cryptocurrencies (BTC, ETH, LTC, DOT, and more)
-- **Flexible input**: Manual entry is always available when you need more control
-
-### `3` Use your own LLM: Ollama, LM Studio, vLLM, LocalAI etc
-
-It's compatible with your local LLM OpenAI-compatible API endpoint. Just make sure that your local model is good in OCR tasks, results are not guaranteed :)
-
-![Local LLMs](public/landing/local-llms.webp)
-
-### `4` Organize your transactions using fully customizable categories, projects and fields
-
-![Transactions Table](public/landing/transactions-big.webp)
-
-Adapt TaxHacker to your unique needs with unlimited customization options. Create custom fields, projects, and categories that better suit your specific needs, idustry standards or country.
-
-- **Custom categories and projecst**: Create your own categories and projects to group your transactions in any convenient way
-- **Custom fields**: You can create unlimited number of custom fields to extraxt more information from your invoices (it's like creating extra columns in Excel)
-- **Full-text search**: Search through the actual content of recognized documents
-- **Advanced filtering**: Find exactly what you need with search and filter options
-- **AI-powered extraction**: Write your own prompts to extract any custom information from documents
-- **Bulk operations**: Process multiple documents or transactions at once
-
-### `5` Customize any LLM prompt. Even system ones
-
-![Custom Categories](public/landing/custom-llm.webp)
-
-Take full control of how TaxHacker's AI processes your documents. Write custom AI prompts for fields, categories, and projects, or modify the built-in ones to match your specific needs.
-
-- **Customizable system prompts**: Modify the general prompt template in settings to suit your business
-- **Field or project-specific prompts**: Create custom extraction rules for your industry-specific documents
-- **Full control**: Adjust field extraction priorities and naming conventions to match your workflow
-- **Industry optimization**: Fine-tune the AI to understand your specific type of business documents
-- **Full transparency**: Every aspect of the AI extraction process is under your control and can be changed right in settings
-
-TaxHacker is 100% adaptable and tunable to your unique requirements — whether you need to extract emails, addresses, project codes, or any other custom information from your documents.
-
-### `6` Flexible data filtering and export
-
-![Data Export](public/landing/export.webp)
-
-Once your documents are processed, easily view, filter, and export your complete transaction history exactly how you need it.
-
-- **Advanced filtering**: Filter by date ranges, categories, projects, amounts, and any custom fields
-- **Flexible exports**: Export filtered transactions to CSV with all attached documents included
-- **Tax-ready reports**: Generate comprehensive reports for your accountant or tax advisor
-- **Data portability**: Download complete data archives to migrate to other services—your data stays yours
-
-### `7` Self-hosted mode for data privacy
-
-![Self-hosting](docs/screenshots/exported_archive.png)
-
-Keep complete control over your financial data with local storage and self-hosting options. TaxHacker respects your privacy and gives you full ownership of your information.
-
-- **Home server ready**: Host on your own infrastructure for maximum privacy and control
-- **Docker native**: Simple setup with provided Docker containers and compose files
-- **Data ownership**: Your financial documents never leaves your control
-- **No vendor lock-in**: Export everything and migrate whenever you want
-- **Transparent operations**: Full access to source code and complete operational transparency
-
-## 🛳 Deployment and Self-hosting
-
-TaxHacker can be easily self-hosted on your own infrastructure for complete control over your data and application environment. We provide a [Docker image](./Dockerfile) and [Docker Compose](./docker-compose.yml) setup that makes deployment simple:
+## Run locally
 
 ```bash
-curl -O https://raw.githubusercontent.com/vas3k/TaxHacker/main/docker-compose.yml
-
-docker compose up
-```
-
-The Docker Compose setup includes:
-
-- TaxHacker application container
-- PostgreSQL 17+ database (or connect to your existing database)
-- Automatic database migrations on startup
-- Volume mounts for persistent data storage
-- Production-ready configuration
-
-New Docker images are automatically built and published with every release. You can use specific version tags (e.g., `v1.0.0`) or `latest` for the most recent version.
-
-For advanced setups, you can customize the Docker Compose configuration to fit your infrastructure. The default configuration uses the pre-built image from GitHub Container Registry, but you can also build locally using the provided [Dockerfile](./Dockerfile).
-
-Example custom configuration:
-
-```yaml
-services:
-  app:
-    image: ghcr.io/vas3k/taxhacker:latest
-    ports:
-      - "7331:7331"
-    environment:
-      - SELF_HOSTED_MODE=true
-      - UPLOAD_PATH=/app/data/uploads
-      - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/taxhacker
-    volumes:
-      - ./data:/app/data
-    restart: unless-stopped
-```
-
-### Environment Variables
-
-Configure TaxHacker for your specific needs with these environment variables:
-
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `UPLOAD_PATH` | Yes | Local directory for file uploads and storage | `./data/uploads` |
-| `DATABASE_URL` | Yes | PostgreSQL connection string | `postgresql://user@localhost:5432/taxhacker` |
-| `PORT` | No | Port to run the application on | `7331` (default) |
-| `BASE_URL` | No | Base URL for the application | `http://localhost:7331` |
-| `SELF_HOSTED_MODE` | No | Set to "true" for self-hosting: enables auto-login, custom API keys, and additional features | `true` |
-| `DISABLE_SIGNUP` | No | Disable new user registration on your instance | `false` |
-| `BETTER_AUTH_SECRET` | Yes | Secret key for authentication (minimum 16 characters) | `your-secure-random-key` |
-
-
-## ⌨️ Local Development
-
-We use:
-
-- **Next.js 15+** for the frontend and API
-- **Prisma** for database models and migrations
-- **PostgreSQL** as the database (PostgreSQL 17+ recommended)
-- **Ghostscript and GraphicsMagick** for PDF processing (install on macOS via `brew install gs graphicsmagick`)
-
-Set up your local development environment:
-
-```bash
-# Clone the repository
-git clone https://github.com/vas3k/TaxHacker.git
-cd TaxHacker
-
-# Install dependencies
+git clone https://github.com/<your-username>/ledger.git
+cd ledger
 npm install
-
-# Set up environment variables
-cp .env.example .env
-
-# Edit .env with your configuration
-# Make sure to set DATABASE_URL to your PostgreSQL connection string
-# Example: postgresql://user@localhost:5432/taxhacker
-
-# Initialize the database
-npx prisma generate && npx prisma migrate dev
-
-# Start the development server
+cp .env.example .env       # set DATABASE_URL + at least one LLM provider key
+npx prisma migrate dev
 npm run dev
 ```
 
-Visit `http://localhost:7331` to see your local TaxHacker instance in action.
+Open <http://localhost:7331>.
 
-For a production build, instead of `npm run dev` use the following commands:
+### Required env vars
 
-```bash
-# Build the application
-npm run build
-
-# Start the production server
-npm run start
+```env
+DATABASE_URL=postgresql://user:pass@host:5432/ledger
+BETTER_AUTH_SECRET=<openssl rand -base64 32>
+OPENAI_API_KEY=sk-...      # or GOOGLE_API_KEY / MISTRAL_API_KEY / ANTHROPIC_API_KEY
 ```
 
-## 🤝 Contributing
+---
 
-No AI-slop PRs. Please open a new Issue and discuss the details with maintainers before sending new changes.
+## Deploy
 
+A `render.yaml` is included for one-click deploy on [Render](https://render.com): provisions a Postgres instance and a web service, runs migrations on first boot. After deploy, add your LLM provider key from the Render dashboard.
 
+---
 
-## ❤️ Support the Project
+## Project context
 
-If TaxHacker has helped you save time or manage your finances better, consider supporting its development! Your donations help us maintain the project, add new features, and keep it free and open source. Every contribution helps ensure we can keep improving and maintaining this tool for the community: <https://vas3k.com/donate/>
+This is a portfolio project — a full redesign of an existing self-hosted accounting app, rebuilt around a coherent design system (`new-design/tokens.css`, `new-design/components.jsx`) and a clean component library (`components/ledger/*`). The original product gave the data model, Prisma schema, and AI extraction pipeline; the rebrand owns everything visual, the navigation, the dashboard, the import/export flows, and the assistant card.
 
-[![Thank the TaxHacker devs](https://img.shields.io/badge/❤️-donate%20to%20Taxhacker%20devs-f08080?labelColor=black&style=for-the-badge)](https://vas3k.com/donate/)
+The reference design and source mockups live under [`new-design/`](new-design/).
 
-## 📄 License
+## License
 
-TaxHacker is licensed under the [MIT License](LICENSE).
+MIT
