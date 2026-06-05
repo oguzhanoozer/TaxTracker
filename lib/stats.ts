@@ -3,12 +3,19 @@ import { Field, Transaction } from "@/prisma/client"
 export function calcTotalPerCurrency(transactions: Transaction[]): Record<string, number> {
   return transactions.reduce(
     (acc, transaction) => {
-      if (transaction.convertedCurrencyCode) {
-        acc[transaction.convertedCurrencyCode.toUpperCase()] =
-          (acc[transaction.convertedCurrencyCode.toUpperCase()] || 0) + (transaction.convertedTotal || 0)
+      // Use converted total only if it has a real non-zero value.
+      // Otherwise the original currency/total is the source of truth.
+      const useConverted =
+        transaction.convertedCurrencyCode &&
+        transaction.convertedTotal !== null &&
+        transaction.convertedTotal !== undefined &&
+        transaction.convertedTotal !== 0
+      if (useConverted) {
+        const code = transaction.convertedCurrencyCode!.toUpperCase()
+        acc[code] = (acc[code] || 0) + (transaction.convertedTotal || 0)
       } else if (transaction.currencyCode) {
-        acc[transaction.currencyCode.toUpperCase()] =
-          (acc[transaction.currencyCode.toUpperCase()] || 0) + (transaction.total || 0)
+        const code = transaction.currencyCode.toUpperCase()
+        acc[code] = (acc[code] || 0) + (transaction.total || 0)
       }
       return acc
     },
