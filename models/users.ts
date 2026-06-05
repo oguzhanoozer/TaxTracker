@@ -6,7 +6,7 @@ import { createUserDefaults } from "./defaults"
 
 export const SELF_HOSTED_USER = {
   email: "taxhacker@localhost",
-  name: "TaxFlow",
+  name: "You",
   membershipPlan: "unlimited",
 }
 
@@ -21,11 +21,19 @@ export const getSelfHostedUser = cache(async () => {
 })
 
 export const getOrCreateSelfHostedUser = cache(async () => {
-  return await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { email: SELF_HOSTED_USER.email },
     update: SELF_HOSTED_USER,
     create: SELF_HOSTED_USER,
   })
+
+  // Seed default fields, categories, projects, currencies on first boot.
+  // Without this the unsorted analyze form crashes (fieldMap.name is undefined).
+  if (await isDatabaseEmpty(user.id)) {
+    await createUserDefaults(user.id)
+  }
+
+  return user
 })
 
 export async function getOrCreateCloudUser(email: string, data: Prisma.UserCreateInput) {

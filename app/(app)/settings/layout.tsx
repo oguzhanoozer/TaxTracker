@@ -3,7 +3,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Settings",
-  description: "Customize your TaxFlow experience",
+  description: "Customize your Ledger experience",
 }
 
 const settingsCategories = [
@@ -55,7 +55,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
       <div className="max-w-5xl mx-auto space-y-6 pb-16">
         <div className="space-y-0.5 mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
-          <p className="text-gray-500">Customize your TaxFlow experience.</p>
+          <p className="text-gray-500">Customize your Ledger experience.</p>
         </div>
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5">
