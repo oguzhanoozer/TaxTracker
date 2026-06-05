@@ -42,7 +42,10 @@ export default async function UnsortedPage() {
         !settings.openai_api_key &&
         !settings.google_api_key &&
         !settings.mistral_api_key &&
-        !settings.openai_compatible_base_url && (
+        !settings.openai_compatible_base_url &&
+        !process.env.OPENAI_API_KEY &&
+        !process.env.GOOGLE_API_KEY &&
+        !process.env.MISTRAL_API_KEY && (
           <Alert>
             <Settings className="h-4 w-4 mt-2" />
             <div className="flex flex-row justify-between pt-2">

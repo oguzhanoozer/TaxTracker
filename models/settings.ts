@@ -15,21 +15,22 @@ export function getLLMSettings(settings: SettingsMap) {
     if (provider === "openai") {
       return {
         provider: provider as LLMProvider,
-        apiKey: settings.openai_api_key || "",
+        // Fall back to env var so deployments without manual settings still work.
+        apiKey: settings.openai_api_key || process.env.OPENAI_API_KEY || "",
         model: settings.openai_model_name || PROVIDERS[0]['defaultModelName'],
       }
     }
     if (provider === "google") {
       return {
         provider: provider as LLMProvider,
-        apiKey: settings.google_api_key || "",
+        apiKey: settings.google_api_key || process.env.GOOGLE_API_KEY || "",
         model: settings.google_model_name || PROVIDERS[1]['defaultModelName'],
       }
     }
     if (provider === "mistral") {
       return {
         provider: provider as LLMProvider,
-        apiKey: settings.mistral_api_key || "",
+        apiKey: settings.mistral_api_key || process.env.MISTRAL_API_KEY || "",
         model: settings.mistral_model_name || PROVIDERS[2]['defaultModelName'],
       }
     }
