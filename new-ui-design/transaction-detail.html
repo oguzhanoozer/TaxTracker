@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaxFlow - Refined Transaction Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-fonts">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F9;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sidebar: '#EBF2FA',
+                        brand: {
+                            DEFAULT: '#22527D',
+                            hover: '#1a4164'
+                        },
+                        success: {
+                            light: '#E8F5E9',
+                            DEFAULT: '#2E8B57', // Emerald-like
+                            dark: '#1e683f'
+                        },
+                        danger: {
+                            DEFAULT: '#E55353',
+                            hover: '#d04343'
+                        },
+                        input: {
+                            border: '#D1D5DB',
+                            bg: '#FFFFFF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-sidebar flex flex-col justify-between py-6 px-4 border-r border-gray-200 shadow-sm z-10 relative shrink-0">
+<div>
+<!-- Logo -->
+<div class="flex items-center gap-3 px-2 mb-8 cursor-pointer">
+<div class="bg-brand text-white p-1.5 rounded-md flex items-center justify-center w-8 h-8">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<span class="font-bold text-xl tracking-tight text-gray-900">TaxFlow</span>
+</div>
+<!-- Upload Button -->
+<button class="w-full bg-brand hover:bg-brand-hover text-white font-medium py-2 px-4 rounded-md flex items-center justify-center gap-2 mb-6 transition-colors shadow-sm">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Upload
+            </button>
+<!-- Navigation Links -->
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-200/50 rounded-md transition-colors font-medium" href="#">
+<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Home
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-brand text-white rounded-md transition-colors font-medium shadow-sm" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Transactions
+                </a>
+<a class="flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-200/50 rounded-md transition-colors font-medium" href="#">
+<div class="flex items-center gap-3">
+<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                        Unsorted
+                    </div>
+<span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">1</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-200/50 rounded-md transition-colors font-medium" href="#">
+<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Apps
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-200/50 rounded-md transition-colors font-medium" href="#">
+<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="space-y-4">
+<!-- Bottom Links -->
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Import from CSV
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Thank the author
+                </a>
+</div>
+<!-- User Profile -->
+<div class="flex items-center justify-between pt-4 border-t border-gray-200">
+<div class="flex items-center gap-2 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center font-bold text-sm">
+                        N
+                    </div>
+<span class="text-sm font-semibold text-gray-800">Self-Hosted Mode</span>
+</div>
+<button class="text-gray-400 hover:text-gray-600">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-[#F0F4F9]">
+<!-- Header -->
+<header class="px-8 py-6 shrink-0">
+<h1 class="text-2xl font-bold text-gray-900 tracking-tight">Refined Transaction Details</h1>
+</header>
+<!-- Content Scroll Area -->
+<div class="flex-1 overflow-y-auto px-8 pb-8">
+<div class="flex gap-6 items-start h-full max-w-7xl mx-auto">
+<!-- Left Panel: Form Details -->
+<section class="flex-1 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col min-h-full" data-purpose="transaction-form">
+<div class="p-6 flex-1 space-y-5">
+<!-- Name Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+<input class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border text-gray-900" type="text" value="Food Purchase"/>
+</div>
+<!-- Merchant Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Merchant</label>
+<input class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border text-gray-900" type="text" value="ALİ BABA'NIN ÇİFTLİĞİ"/>
+</div>
+<!-- Description Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+<input class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border text-gray-900" type="text" value="Purchase of meat at a restaurant"/>
+</div>
+<!-- Multi-column row 1: Total, Currency, Type -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Total</label>
+<input class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border text-gray-900" step="0.01" type="number" value="911.36"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Currency</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="text-gray-500 sm:text-sm bg-gray-200 rounded px-1.5 py-0.5 text-xs font-bold">₺</span>
+</div>
+<select class="w-full pl-10 rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm py-2 border text-gray-900 bg-white cursor-pointer appearance-none">
+<option selected="">TRY</option>
+<option>USD</option>
+<option>EUR</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="bg-gray-800 text-white rounded-full p-0.5 flex items-center justify-center">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+</div>
+<select class="w-full pl-10 rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm py-2 border text-gray-900 bg-white cursor-pointer appearance-none">
+<option selected="">Expense</option>
+<option>Income</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Multi-column row 2: Issued At -->
+<div class="w-1/3 pr-2">
+<label class="block text-sm font-medium text-gray-700 mb-1">Issued At</label>
+<div class="relative">
+<input class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border pr-10 text-gray-900" type="text" value="04.04.2026"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<!-- Multi-column row 3: Category, Project -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-2/3">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="w-2 h-2 rounded-full bg-pink-600"></span>
+</div>
+<select class="w-full pl-8 rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm py-2 border text-gray-900 bg-white cursor-pointer appearance-none">
+<option selected="">Food and Drinks</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Project</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="w-2 h-2 rounded-full bg-gray-800"></span>
+</div>
+<select class="w-full pl-8 rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm py-2 border text-gray-900 bg-white cursor-pointer appearance-none">
+<option selected="">Personal</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Note Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Note</label>
+<textarea class="w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand sm:text-sm px-3 py-2 border text-gray-900 resize-y" rows="3">Purchase for business trip</textarea>
+</div>
+<!-- Detected Items Area -->
+<div class="border border-success rounded-md overflow-hidden bg-white">
+<div class="bg-success-light px-3 py-2 flex items-center gap-2 border-b border-success/20">
+<svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm font-semibold text-success-dark">Detected items</span>
+</div>
+<div class="p-4 flex justify-between items-start">
+<div>
+<h4 class="font-medium text-gray-900 text-sm">Dana Kaburga Az Yağlı</h4>
+<p class="text-sm text-gray-500 mt-0.5">Meat purchase</p>
+</div>
+<div class="font-semibold text-gray-900">
+                                    TRY 911.36
+                                </div>
+</div>
+</div>
+</div>
+<!-- Form Actions Footer -->
+<div class="p-6 border-t border-gray-100 flex justify-between items-center bg-gray-50/50 rounded-b-xl shrink-0">
+<button class="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-danger hover:bg-danger-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-danger transition-colors" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            Delete
+                        </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-success hover:bg-success-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success transition-colors" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            Save Transaction
+                        </button>
+</div>
+<!-- Recognized Text Toggle (Bottom) -->
+<div class="px-6 pb-6 pt-2">
+<button class="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900">
+<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            Recognized Text
+                        </button>
+</div>
+</section>
+<!-- END: Left Panel -->
+<!-- BEGIN: Right Panel: File Info -->
+<aside class="w-80 flex flex-col gap-4 shrink-0 h-full" data-purpose="receipt-preview">
+<!-- Image Card -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+<!-- Image Container -->
+<div class="relative bg-gray-100 flex-1 min-h-[400px] overflow-hidden group">
+<img alt="Scanned Receipt" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHPlF5CuBAzppXLZeNbr5AJFVwfkm18TDWwaVGjOx8Idt2hukHsysmQdDdak70TK1WiVnrY1aKTgOWdVaeDXoHYVuW-BxuB8sJ9sZJZDMc1KywQv8YE3HVMtI_QfaQ6lQP10H3J-oHmV2Kb8AnQ789lv8whdzu17Aom7UaxuTSqZ0740n9BMjXwATncMluI0FXcBFhQ3dSxjN06R34q55l0Dkwiy8yCsy12TkPW3I2fh7nvUnno45kolewr2fgPmfQst63g_zT9Aw"/>
+<!-- Image Overlay Controls -->
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<div class="bg-brand text-white rounded-lg shadow-lg flex p-1 gap-1">
+<button class="p-2 hover:bg-white/20 rounded transition-colors" title="Zoom In">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="p-2 hover:bg-white/20 rounded transition-colors" title="Zoom Out">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="w-px bg-white/30 my-2 mx-1"></div>
+<button class="p-2 hover:bg-white/20 rounded transition-colors" title="Rotate">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- File Details -->
+<div class="p-4 bg-white border-t border-gray-100 shrink-0">
+<h3 class="font-bold text-gray-900 text-sm mb-2 underline decoration-gray-300 underline-offset-4">IMG_5823.jpeg</h3>
+<div class="text-sm text-gray-600 space-y-1">
+<p><span class="font-medium text-gray-800">Type:</span> image/jpeg</p>
+<p><span class="font-medium text-gray-800">Size:</span> 4.67 MB</p>
+</div>
+</div>
+</div>
+<!-- Dropzone Card -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors border-dashed border-2 shrink-0">
+<div class="text-gray-400 mb-2">
+<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<p class="text-sm font-medium text-gray-800 mb-1">Add more files to this invoice</p>
+<p class="text-xs text-gray-500">(or just drop them on this page)</p>
+</div>
+</aside>
+<!-- END: Right Panel -->
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+</body></html>

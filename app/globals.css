@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Ledger — Editorial Finance design tokens
+   ============================================================ */
+@layer base {
+  :root {
+    /* Raw tokens (mirror new-design/tokens.css) */
+    --paper:        #F2EEE4;
+    --paper-2:      #ECE7DA;
+    --surface:      #FBFAF5;
+    --surface-2:    #F6F3EA;
+    --ink:          #1E1B16;
+    --ink-2:        #4A453B;
+    --ink-3:        #837C6D;
+    --hairline:     #E2DCCD;
+    --hairline-2:   #D6CFBC;
+
+    --accent:       #1F4A3B;
+    --accent-2:     #2C6650;
+    --accent-soft:  #DFE9E2;
+    --accent-ink:   #F4F1E9;
+
+    --gold:         #B5852F;
+    --clay:         #BD5733;
+
+    --blue:         #2D63D6;  --blue-soft:  #DDE6FA;
+    --green:        #2E7D52;  --green-soft: #D9EAdf;
+    --amber:        #B07D1A;  --amber-soft: #F0E4C6;
+    --red:          #BB3B2C;  --red-soft:   #F4DBD6;
+
+    --shadow-sm: 0 1px 2px rgba(30,27,22,.05), 0 1px 3px rgba(30,27,22,.04);
+    --shadow-md: 0 2px 6px rgba(30,27,22,.06), 0 8px 24px rgba(30,27,22,.06);
+    --shadow-lg: 0 4px 12px rgba(30,27,22,.08), 0 24px 60px rgba(30,27,22,.10);
+
+    --ai-grad: linear-gradient(135deg, #1F4A3B 0%, #2E6E68 42%, #3C5C8A 78%, #5B4E8C 100%);
+
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 16px;
+    --r-xl: 22px;
+    --sidebar-w: 248px;
+    --topbar-h: 64px;
+
+    /* shadcn-compatible HSL aliases (so existing Card / Input / Button components keep working) */
+    --background: 38 35% 92%;
+    --foreground: 34 16% 10%;
+    --card: 45 40% 98%;
+    --card-foreground: 34 16% 10%;
+    --popover: 45 40% 98%;
+    --popover-foreground: 34 16% 10%;
+    --primary: 160 41% 21%;
+    --primary-foreground: 45 40% 95%;
+    --secondary: 42 32% 89%;
+    --secondary-foreground: 34 16% 10%;
+    --muted: 42 32% 89%;
+    --muted-foreground: 36 11% 27%;
+    --accent-h: 160 41% 21%;          /* unused but keeps tw safe */
+    --accent-foreground: 45 40% 95%;
+    --destructive: 12 56% 47%;
+    --destructive-foreground: 45 40% 95%;
+    --border: 42 25% 84%;
+    --input: 42 25% 84%;
+    --ring: 160 41% 21%;
+    --chart-1: 160 41% 21%;
+    --chart-2: 40 60% 45%;
+    --chart-3: 12 56% 47%;
+    --chart-4: 34 16% 30%;
+    --chart-5: 40 10% 47%;
+    --radius: 0.625rem;
+    --sidebar-background: 42 32% 89%;
+    --sidebar-foreground: 34 16% 10%;
+    --sidebar-primary: 160 41% 21%;
+    --sidebar-primary-foreground: 45 40% 95%;
+    --sidebar-accent: 45 40% 98%;
+    --sidebar-accent-foreground: 34 16% 10%;
+    --sidebar-border: 42 25% 84%;
+    --sidebar-ring: 160 41% 21%;
+  }
+
+  .dark {
+    --paper:        #14110D;
+    --surface:      #1B1814;
+    --ink:          #F2EDE3;
+    --background: 34 16% 8%;
+    --foreground: 45 30% 92%;
+    --card: 34 16% 11%;
+    --card-foreground: 45 30% 92%;
+    --primary: 140 30% 70%;
+    --primary-foreground: 34 16% 8%;
+    --secondary: 34 12% 16%;
+    --secondary-foreground: 45 30% 92%;
+    --muted: 34 12% 16%;
+    --muted-foreground: 40 10% 60%;
+    --border: 34 12% 18%;
+    --input: 34 12% 18%;
+    --ring: 140 30% 70%;
+  }
+
+  * { @apply border-border outline-ring/50; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans), 'Hanken Grotesk', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; }
+}
+
+/* ---- Type helpers (mirror tokens.css) ---- */
+.serif {
+  font-family: var(--font-newsreader), 'Newsreader', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.font-serif { font-family: var(--font-newsreader), 'Newsreader', Georgia, serif; letter-spacing: -0.02em; }
+.mono, .num {
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.font-mono-num {
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Focus ring ---- */
+.focusable { cursor: pointer; outline: none; }
+.focusable:focus-visible {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--accent);
+}
+
+/* ---- Pulse dot ---- */
+@keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.55); } }
+.pulse-dot { animation: pulseDot 1.6s ease-in-out infinite; }
+
+/* ---- Stagger fade ---- */
+@keyframes ledgerStagger {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stagger > * { animation: ledgerStagger 0.45s ease-out backwards; }
+.stagger > *:nth-child(1) { animation-delay: 0.02s; }
+.stagger > *:nth-child(2) { animation-delay: 0.06s; }
+.stagger > *:nth-child(3) { animation-delay: 0.10s; }
+.stagger > *:nth-child(4) { animation-delay: 0.14s; }
+.stagger > *:nth-child(5) { animation-delay: 0.18s; }
+.stagger > *:nth-child(6) { animation-delay: 0.22s; }
+
+/* ---- Grain texture ---- */
+.grain { position: relative; }
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---- Shimmer ---- */
+@keyframes ledgerShimmer { to { background-position: 200% 0; } }
+.shimmer {
+  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%);
+  background-size: 200% 100%;
+  animation: ledgerShimmer 1.4s linear infinite;
+  mix-blend-mode: overlay;
+}
+
+/* ---- Scrollbar ---- */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--hairline-2);
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+  background-clip: content-box;
+}
+
+/* Legacy classes used elsewhere — keep behavior */
+.dashboard-main { background-color: var(--paper); min-height: 100vh; }
+.ai-assistant-box { background: var(--surface); border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
+.upload-area { border: 2px dashed var(--hairline); background-color: var(--surface); transition: border-color 150ms ease, background 150ms ease; }
+.upload-area:hover { border-color: var(--accent); background-color: var(--surface-2); }

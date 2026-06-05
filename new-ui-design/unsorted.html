@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaxHacker - Unsorted Files AI Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="custom-fonts">
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<style data-purpose="custom-utilities">
+    .bg-gradient-btn {
+      background: linear-gradient(90deg, #6b8cce 0%, #a265d6 100%);
+    }
+    .bg-gradient-progress {
+      background: linear-gradient(90deg, #6b8cce 0%, #a265d6 100%);
+    }
+  </style>
+</head>
+<body class="bg-[#F3F4F6] text-gray-800 min-h-screen flex">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-[#F3F4F6] flex flex-col justify-between border-r border-gray-200" data-purpose="sidebar">
+<div class="px-4 py-6">
+<!-- Logo Container -->
+<div class="flex items-center space-x-2 mb-8 px-2" data-purpose="brand">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-white shadow-sm flex items-center justify-center">
+<img alt="TaxHacker Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaOs13K7Wl8s03g467aS7UnD7Phg-Od7p_9kT1nEbR8Du1evXvoNl62rpw1gUfFC5qIPMLwf-sbLA2RF-ccBbVeVqUqDFG-5Y1Mzrw_YYY9a9tqMIV09i7O2ZH15Hl2olJ2cG616mroxGS2jExCJL2t1WfUQ9oLn4p30Z6Z7BPPL3V1U7m36D6xTXMcPJcL3OOOcPIdonn0_JS014IBEofnDJhKORUW2Ygw2guhXwUTTxOOOVglaZxL7TjRdSq9s8pSrHizc5bSTc"/>
+</div>
+<span class="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">TaxHacker</span>
+</div>
+<!-- Upload Button -->
+<button class="w-full bg-[#1F2937] hover:bg-gray-800 text-white py-2.5 px-4 rounded-lg flex items-center justify-center space-x-2 mb-8 transition-colors">
+<i class="w-4 h-4" data-lucide="upload"></i>
+<span class="font-medium text-sm">Upload</span>
+</button>
+<!-- Navigation Links -->
+<nav class="space-y-1" data-purpose="main-navigation">
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors group" href="#">
+<i class="w-5 h-5 text-gray-400 group-hover:text-gray-600" data-lucide="home"></i>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors group" href="#">
+<i class="w-5 h-5 text-gray-400 group-hover:text-gray-600" data-lucide="file-text"></i>
+<span class="text-sm font-medium">Transactions</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 bg-white text-gray-900 rounded-lg shadow-sm" href="#">
+<div class="flex items-center space-x-3">
+<i class="w-5 h-5 text-gray-600" data-lucide="inbox"></i>
+<span class="text-sm font-medium">Unsorted</span>
+</div>
+<span class="bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">1</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors group" href="#">
+<i class="w-5 h-5 text-gray-400 group-hover:text-gray-600" data-lucide="layout-grid"></i>
+<span class="text-sm font-medium">Apps</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors group" href="#">
+<i class="w-5 h-5 text-gray-400 group-hover:text-gray-600" data-lucide="settings"></i>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Sidebar Actions -->
+<div class="p-4 space-y-2">
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors" href="#">
+<i class="w-4 h-4" data-lucide="download"></i>
+<span class="text-sm">Import from CSV</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors" href="#">
+<i class="w-4 h-4" data-lucide="gift"></i>
+<span class="text-sm">Thank the author</span>
+</a>
+<div class="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between px-2">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center text-sm font-semibold">N</div>
+<span class="text-sm font-medium text-gray-700">Self-Hosted Mode</span>
+</div>
+<button class="text-gray-400 hover:text-gray-600">
+<i class="w-4 h-4" data-lucide="more-vertical"></i>
+</button>
+</div>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content -->
+<main class="flex-1 bg-white rounded-tl-3xl shadow-sm border-l border-t border-gray-200 overflow-y-auto" data-purpose="main-content-area">
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Header -->
+<header class="mb-8" data-purpose="page-header">
+<h1 class="text-2xl font-bold text-gray-900">Unsorted Files - AI Analysis</h1>
+</header>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Image Card -->
+<div class="lg:col-span-5" data-purpose="receipt-image-preview">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col h-full">
+<div class="flex-1 relative rounded-lg overflow-hidden bg-gray-100 min-h-[400px] mb-4"><div class="absolute inset-0 w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">Receipt Image Placeholder</div></div>
+<div class="space-y-1">
+<h3 class="font-semibold text-gray-900 text-sm">IMG_5823.jpeg</h3>
+<p class="text-sm text-gray-600"><span class="font-medium text-gray-900">Type:</span> image/jpeg</p>
+<p class="text-sm text-gray-600"><span class="font-medium text-gray-900">Size:</span> 4.67 MB</p>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Analysis & Form -->
+<div class="lg:col-span-7 flex flex-col space-y-6" data-purpose="analysis-form">
+<!-- AI Action Area -->
+<div class="space-y-4">
+<button class="w-full bg-gradient-btn text-white py-3 rounded-lg font-medium shadow-sm flex items-center justify-center space-x-2 hover:opacity-90 transition-opacity">
+<i class="w-5 h-5 animate-spin" data-lucide="loader-2"></i>
+<span>Analyze with AI</span>
+</button>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-medium text-gray-700">
+<span>Processing...</span>
+<span>85%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-gradient-progress h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex-1 flex flex-col">
+<div class="space-y-5 flex-1">
+<!-- Name Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
+<input class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500" id="name" type="text" value="Food Purchase"/>
+</div>
+<!-- Merchant Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="merchant">Merchant</label>
+<input class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500" id="merchant" type="text" value="ALİ BABA'NIN ÇİFTLİĞİ"/>
+</div>
+<!-- Issued At Field -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="issued_at">Issued At</label>
+<div class="relative">
+<input class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500 pr-10" id="issued_at" type="text" value="04.04.2026"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<i class="w-4 h-4 text-gray-400" data-lucide="calendar"></i>
+</div>
+</div>
+</div>
+<!-- Total & Currency Row -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="total">Total</label>
+<input class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500" id="total" type="text" value="911.36"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="currency">Currency</label>
+<select class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500 shadow-sm appearance-none" id="currency">
+<option>TRY</option>
+</select>
+</div>
+</div>
+<!-- Category & Project Row -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="category">Category</label>
+<select class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500 shadow-sm appearance-none" id="category">
+<option>Food and Drinks</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="project">Project</label>
+<select class="w-full bg-[#f1f3f5] border-transparent rounded-md py-2 px-3 text-sm text-gray-900 font-medium focus:ring-blue-500 focus:border-blue-500 shadow-sm appearance-none" id="project">
+<option>Personal</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex justify-between items-center mt-8 pt-4 border-t border-gray-100" data-purpose="form-actions">
+<button class="flex items-center space-x-2 text-[#EF4444] border border-[#EF4444]/30 hover:bg-red-50 bg-white px-4 py-2 rounded-lg text-sm font-medium transition-colors" type="button">
+<i class="w-4 h-4" data-lucide="trash-2"></i>
+<span>Delete</span>
+</button>
+<button class="flex items-center space-x-2 bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2 rounded-lg text-sm font-medium shadow-sm transition-colors" type="button">
+<i class="w-4 h-4" data-lucide="check"></i>
+<span>Save as Transaction</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Content -->
+<!-- Script for icons -->
+<script data-purpose="icon-initialization">
+    lucide.createIcons();
+  </script>
+</body></html>

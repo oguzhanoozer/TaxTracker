@@ -1,0 +1,226 @@
+/* ============================================================
+   Ledger — Editorial Finance design tokens
+   ============================================================ */
+
+/* ---- Fonts ---- */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============================================================
+   THEME: Paper (default) — warm cream + ink + pine
+   ============================================================ */
+:root,
+[data-theme="paper"] {
+  --paper:        #F2EEE4;
+  --paper-2:      #ECE7DA;
+  --surface:      #FBFAF5;
+  --surface-2:    #F6F3EA;
+  --ink:          #1E1B16;
+  --ink-2:        #4A453B;
+  --ink-3:        #837C6D;
+  --hairline:     #E2DCCD;
+  --hairline-2:   #D6CFBC;
+
+  --accent:       #1F4A3B;   /* pine */
+  --accent-2:     #2C6650;
+  --accent-soft:  #DFE9E2;
+  --accent-ink:   #F4F1E9;   /* text on accent */
+
+  --gold:         #B5852F;
+  --clay:         #BD5733;
+
+  --blue:         #2D63D6;  --blue-soft:  #DDE6FA;
+  --green:        #2E7D52;  --green-soft: #D9EAdf;
+  --amber:        #B07D1A;  --amber-soft: #F0E4C6;
+  --red:          #BB3B2C;  --red-soft:   #F4DBD6;
+
+  --shadow-sm: 0 1px 2px rgba(30,27,22,.05), 0 1px 3px rgba(30,27,22,.04);
+  --shadow-md: 0 2px 6px rgba(30,27,22,.06), 0 8px 24px rgba(30,27,22,.06);
+  --shadow-lg: 0 4px 12px rgba(30,27,22,.08), 0 24px 60px rgba(30,27,22,.10);
+
+  --ai-grad: linear-gradient(135deg, #1F4A3B 0%, #2E6E68 42%, #3C5C8A 78%, #5B4E8C 100%);
+  color-scheme: light;
+}
+
+/* ============================================================
+   THEME: Slate — cool light gray + indigo
+   ============================================================ */
+[data-theme="slate"] {
+  --paper:        #EEF0F4;
+  --paper-2:      #E5E8EE;
+  --surface:      #FFFFFF;
+  --surface-2:    #F5F6F9;
+  --ink:          #1A1D24;
+  --ink-2:        #444B57;
+  --ink-3:        #7B8392;
+  --hairline:     #E1E4EB;
+  --hairline-2:   #D2D7E0;
+
+  --accent:       #3D3BC4;   /* indigo */
+  --accent-2:     #5654DA;
+  --accent-soft:  #E2E2F8;
+  --accent-ink:   #FFFFFF;
+
+  --gold:         #9A7B17;
+  --clay:         #C2542E;
+
+  --blue:         #2D63D6;  --blue-soft:  #DEE7FB;
+  --green:        #1E8A56;  --green-soft: #D7EFE2;
+  --amber:        #B07D1A;  --amber-soft: #F4E7C4;
+  --red:          #CC3A2E;  --red-soft:   #FADBD7;
+
+  --shadow-sm: 0 1px 2px rgba(20,24,33,.05), 0 1px 3px rgba(20,24,33,.05);
+  --shadow-md: 0 2px 6px rgba(20,24,33,.07), 0 8px 24px rgba(20,24,33,.07);
+  --shadow-lg: 0 4px 12px rgba(20,24,33,.09), 0 24px 60px rgba(20,24,33,.12);
+
+  --ai-grad: linear-gradient(135deg, #3D3BC4 0%, #4F6FE0 45%, #2E9FB0 100%);
+  color-scheme: light;
+}
+
+/* ============================================================
+   THEME: Carbon — dark, warm ivory text + pine/lime
+   ============================================================ */
+[data-theme="carbon"] {
+  --paper:        #16140F;
+  --paper-2:      #1E1B15;
+  --surface:      #211E18;
+  --surface-2:    #2A271F;
+  --ink:          #F2EDE0;
+  --ink-2:        #C2BBAB;
+  --ink-3:        #8A8474;
+  --hairline:     #34302738;
+  --hairline:     #38332A;
+  --hairline-2:   #4A453A;
+
+  --accent:       #6FBF8E;   /* lime-pine */
+  --accent-2:     #8AD3A6;
+  --accent-soft:  #25342B;
+  --accent-ink:   #0F1A14;
+
+  --gold:         #D9A94A;
+  --clay:         #E0794E;
+
+  --blue:         #6E9DF0;  --blue-soft:  #1F2B45;
+  --green:        #6FBF8E;  --green-soft: #1E3327;
+  --amber:        #D9A94A;  --amber-soft: #3A2F18;
+  --red:          #E0705F;  --red-soft:   #3C211C;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 2px 8px rgba(0,0,0,.45), 0 8px 28px rgba(0,0,0,.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.5), 0 28px 70px rgba(0,0,0,.55);
+
+  --ai-grad: linear-gradient(135deg, #1B3B30 0%, #2E5E58 45%, #3C4E78 100%);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   Shared tokens
+   ============================================================ */
+:root {
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans:  'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+
+  /* display font is swappable via tweak */
+  --font-display: var(--font-serif);
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  --sidebar-w: 248px;
+  --topbar-h: 64px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  line-height: 1.5;
+}
+#root { min-height: 100vh; }
+
+.serif { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+.mono  { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.num   { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+h1,h2,h3,h4 { margin: 0; font-weight: 600; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* scrollbars */
+*::-webkit-scrollbar { width: 11px; height: 11px; }
+*::-webkit-scrollbar-thumb { background: var(--hairline-2); border-radius: 20px; border: 3px solid transparent; background-clip: content-box; }
+*::-webkit-scrollbar-thumb:hover { background: var(--ink-3); background-clip: content-box; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--blue) 22%, transparent) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+.pulse-dot { animation: pulse-dot 1.1s ease-in-out infinite; }
+
+@keyframes rise {
+  from { opacity: .001; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes riseSafe {
+  from { transform: translateY(10px); }
+  to   { transform: translateY(0); }
+}
+.rise { animation: riseSafe .45s cubic-bezier(.2,.7,.2,1); }
+
+@keyframes float-grain { 0%{transform:translate(0,0);} 100%{transform:translate(-40px,-40px);} }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .shimmer, .pulse-dot, .spin { animation: none !important; }
+}
+
+/* staggered children on mount */
+.stagger > * { animation: riseSafe .45s cubic-bezier(.2,.7,.2,1); }
+.stagger > *:nth-child(1){animation-delay:.02s}
+.stagger > *:nth-child(2){animation-delay:.06s}
+.stagger > *:nth-child(3){animation-delay:.10s}
+.stagger > *:nth-child(4){animation-delay:.14s}
+.stagger > *:nth-child(5){animation-delay:.18s}
+.stagger > *:nth-child(6){animation-delay:.22s}
+.stagger > *:nth-child(7){animation-delay:.26s}
+.stagger > *:nth-child(8){animation-delay:.30s}
+
+/* focus ring */
+.focusable:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+/* grain overlay for AI card */
+.grain::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: .10; mix-blend-mode: overlay; pointer-events: none;
+}
