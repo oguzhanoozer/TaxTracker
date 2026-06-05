@@ -108,7 +108,9 @@ OPENAI_API_KEY=sk-...      # or GOOGLE_API_KEY / MISTRAL_API_KEY / ANTHROPIC_API
 
 ## Deploy
 
-A `render.yaml` is included for one-click deploy on [Render](https://render.com): provisions a Postgres instance and a web service, runs migrations on first boot. After deploy, add your LLM provider key from the Render dashboard.
+A `render.yaml` is included for one-click deploy on [Render](https://render.com). The blueprint provisions a Node web service and runs migrations on first boot. Postgres is hosted externally (Neon recommended for free tier) — paste the connection string into `DATABASE_URL` after the blueprint scan.
+
+> **Note on file storage** — receipt uploads land on the container's local disk (`./uploads/`). On Render's free tier this disk is ephemeral and is wiped on every redeploy. That's intentional for the live demo; for production self-hosting, mount a Render persistent disk or swap the file layer (`lib/files.ts`) for S3 / R2 / Supabase Storage.
 
 ---
 
